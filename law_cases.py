@@ -26,6 +26,11 @@ def get_pages(url):
 
 # iterate through all the pages and get all the cases
 def get_cases(url):
+    """
+    Get all the cases for the constructed url
+    :param url:
+    :return:
+    """
     case_list = []
     # call the previous function to get all the URL pages
     page_list = get_pages(url)
@@ -38,6 +43,11 @@ def get_cases(url):
 
 
 def search_story(keyword):
+    """
+    This is the function that searches for a story and returns the oldest found case
+    :param keyword:
+    :return:
+    """
     starting_url = 'https://api.case.law/v1/cases/?search=' + keyword
 
     # call previous function to get all the cases for the starting_url that is constructed above
@@ -53,6 +63,7 @@ def search_story(keyword):
         date = case['decision_date']
         url = case['url']
         if ("date" not in oldest_case) or (oldest_case["date"] > date):
+            #this is the oldest case so far
             oldest_case["id"] = id
             oldest_case["jurisdiction"] = jurisdiction
             oldest_case["date"] = date
@@ -63,9 +74,9 @@ def search_story(keyword):
     print(oldest_case)
 
 # here you enter the keyword to be searched. Use %20 for SPACE character
+search_story(input("Please include your keyword "))
 print("Please wait, this could take a while depending on the query performed")
 # Here you can change the query that you want to do
 # search_story('El%20Chapo%20Guzman')
-search_story('"Mike%20Tyson"')
 
 print("And we are all done")
